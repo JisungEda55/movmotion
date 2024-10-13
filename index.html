@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spacewalker</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: transparent;
+        }
+
+        .spacewalk {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150px;
+            height: 150px;
+            transform: translate(-50%, -50%);
+            animation: float ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            25% {
+                transform: translate(-40%, -60%) rotate(5deg);
+            }
+            50% {
+                transform: translate(-60%, -55%) rotate(-5deg);
+            }
+            75% {
+                transform: translate(-45%, -65%) rotate(5deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="https://i.ibb.co/vXz1k8t/file-noph-Bb-Gtdxu2sn-Ntsns1-BJx-FS-ezgif-com-webp-to-png-converter.png" alt="spacewalker" class="spacewalk" id="spacewalker">
+
+    <script>
+        // 이미지의 애니메이션 속도를 랜덤하게 설정하는 함수
+        function setRandomAnimation() {
+            var element = document.getElementById("spacewalker");
+            
+            // 5초에서 8초 사이의 랜덤한 속도 설정
+            var randomDuration = Math.random() * (8 - 2) + 8;
+            
+            // 애니메이션 속도 적용
+            element.style.animationDuration = randomDuration + 's';
+        }
+
+        // 페이지가 로드될 때마다 속도를 랜덤하게 설정
+        window.onload = function() {
+            setRandomAnimation();
+        }
+    </script>
+</body>
+</html>
