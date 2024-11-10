@@ -69,6 +69,53 @@
         // 페이지가 로드될 때마다 속도를 랜덤하게 설정
         window.onload = function() {
             setRandomAnimation();
+            playInitialSound();
+            scheduleRandomSound();
+        }
+
+        // 첫 번째 랜덤 사운드를 즉시 재생하는 함수
+        let previousSoundIndex = -1;
+        function playInitialSound() {
+            var soundUrls = [
+                'https://github.com/JisungEda55/movmotion/blob/main/boo/sound-teresa-0.mp3?raw=true',
+                'https://github.com/JisungEda55/movmotion/blob/main/boo/sound-teresa-1.mp3?raw=true',
+                'https://github.com/JisungEda55/movmotion/blob/main/boo/sound-teresa-2.mp3?raw=true'
+            ];
+            
+            // 직전에 재생된 사운드를 제외한 랜덤 사운드 선택
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * soundUrls.length);
+            } while (randomIndex === previousSoundIndex);
+
+            previousSoundIndex = randomIndex;
+            var audio = new Audio(soundUrls[randomIndex]);
+            audio.play();
+        }
+
+        // 4분에서 6분 사이에 랜덤으로 사운드를 재생하는 함수
+        function scheduleRandomSound() {
+            var soundUrls = [
+                'https://github.com/JisungEda55/movmotion/blob/main/boo/sound-teresa-0.mp3?raw=true',
+                'https://github.com/JisungEda55/movmotion/blob/main/boo/sound-teresa-1.mp3?raw=true',
+                'https://github.com/JisungEda55/movmotion/blob/main/boo/sound-teresa-2.mp3?raw=true'
+            ];
+            
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * soundUrls.length);
+            } while (randomIndex === previousSoundIndex);
+
+            previousSoundIndex = randomIndex;
+            var audio = new Audio(soundUrls[randomIndex]);
+            
+            // 4분(240초)에서 6분(360초) 사이의 랜덤한 시간 설정
+            var randomTime = Math.random() * (360 - 240) + 240;
+
+            setTimeout(function() {
+                audio.play();
+                scheduleRandomSound();
+            }, randomTime * 1000);
         }
     </script>
 </body>
