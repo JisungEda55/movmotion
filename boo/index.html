@@ -9,15 +9,15 @@
             margin: 0;
             overflow: hidden;
             background-color: transparent;
-            user-select: none; /* 텍스트 선택 방지 */
+            user-select: none;
         }
 
         .spacewalk {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 80vw; /* 뷰포트 폭의 95%로 설정 */
-            height: auto; /* 비율에 맞춰 높이를 자동 조정 */
+            width: 80vw;
+            height: auto;
             transform: translate(-50%, -50%);
             animation: float ease-in-out infinite;
         }
@@ -39,41 +39,41 @@
                 transform: translate(-50%, -50%) rotate(0deg);
             }
         }
+
+        #soundButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #fac000;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #soundButton img {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
+    <button id="soundButton">
+        <img src="https://www.svgrepo.com/show/505504/sound-2.svg" alt="Sound Icon">
+    </button>
     <img src="https://play.nintendo.com/images/PLAY-6578-Boo-FriendPage-FriendPageMasthead_v01.b19a16e5.ed4a1562.png" alt="BOO" class="spacewalk" id="spacewalker">
 
     <script>
-        // 우클릭 방지
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // 텍스트 선택 방지
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-        });
-
-        // 이미지의 애니메이션 속도를 랜덤하게 설정하는 함수
         function setRandomAnimation() {
             var element = document.getElementById("spacewalker");
-            
-            // 5초에서 8초 사이의 랜덤한 속도 설정
             var randomDuration = Math.random() * (8 - 2) + 8;
-            
-            // 애니메이션 속도 적용
             element.style.animationDuration = randomDuration + 's';
         }
 
-        // 페이지가 로드될 때마다 속도를 랜덤하게 설정
-        window.onload = function() {
-            setRandomAnimation();
-            playInitialSound();
-            scheduleRandomSound();
-        }
-
-        // 첫 번째 랜덤 사운드를 즉시 재생하는 함수
         let previousSoundIndex = -1;
         function playInitialSound() {
             var soundUrls = [
@@ -82,7 +82,6 @@
                 'https://github.com/JisungEda55/movmotion/blob/main/boo/sound-teresa-2.mp3?raw=true'
             ];
             
-            // 직전에 재생된 사운드를 제외한 랜덤 사운드 선택
             let randomIndex;
             do {
                 randomIndex = Math.floor(Math.random() * soundUrls.length);
@@ -93,7 +92,6 @@
             audio.play();
         }
 
-        // 4분에서 6분 사이에 랜덤으로 사운드를 재생하는 함수
         function scheduleRandomSound() {
             var soundUrls = [
                 'https://github.com/JisungEda55/movmotion/blob/main/boo/sound-teresa-0.mp3?raw=true',
@@ -109,13 +107,22 @@
             previousSoundIndex = randomIndex;
             var audio = new Audio(soundUrls[randomIndex]);
             
-            // 4분(240초)에서 6분(360초) 사이의 랜덤한 시간 설정
             var randomTime = Math.random() * (360 - 240) + 240;
 
             setTimeout(function() {
                 audio.play();
                 scheduleRandomSound();
             }, randomTime * 1000);
+        }
+
+        document.getElementById('soundButton').addEventListener('click', function() {
+            playInitialSound();
+            scheduleRandomSound();
+            document.getElementById('soundButton').style.display = 'none';
+        });
+
+        window.onload = function() {
+            setRandomAnimation();
         }
     </script>
 </body>
